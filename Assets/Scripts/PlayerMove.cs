@@ -24,6 +24,7 @@ public class PlayerMove : MonoBehaviour
 
     public static int hp = 100;
     public static int score=0;
+    public static int stageScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
         hp=100;
+        stageScore = 0;
     }
 
     // Update is called once per frame
