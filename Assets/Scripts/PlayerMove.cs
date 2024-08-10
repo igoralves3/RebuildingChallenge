@@ -58,9 +58,18 @@ public class PlayerMove : MonoBehaviour
         if(hp <= 0){
             SceneManager.LoadScene("Defeat");
         }
-
+        bool consertadasTodas = true;
+        foreach(var j in GameObject.FindGameObjectsWithTag("Window")){
+            if(!j.GetComponent<WindowMove>().consertada){
+            consertadasTodas=false;
+            break;
+            }
+        }
+        if(consertadasTodas){
+        SceneManager.LoadScene("Victory");
+        }
         if(secondsLeft <= 0){
-                
+               SceneManager.LoadScene("Defeat"); 
 
         }else{
            timer += Time.deltaTime;

@@ -48,6 +48,31 @@ public class GameButton : MonoBehaviour
         PlayerMove.level = 1;
         SceneManager.LoadScene("Floor1");
     }
+    if(type == "Next Level"){
+    PlayerMove.score += PlayerMove.stageScore;
+        PlayerMove.stageScore = 0;
+       
+        PlayerMove.level += 1;
+        int l = PlayerMove.level % 4;
+        switch(l){
+        case 1:
+        SceneManager.LoadScene("Floor1");
+        break;
+
+        case 2:
+        SceneManager.LoadScene("Floor2");
+        break;
+
+        case 3:
+        SceneManager.LoadScene("Floor3");
+        break;
+
+        default:
+        SceneManager.LoadScene("Terrace");
+        break;
+        }
+        
+    }
     if(type == "Quit"){
         Application.Quit();
     }
