@@ -41,12 +41,12 @@ public class PlayerMove : MonoBehaviour
         secondsLeft = 60;
         rb = GetComponent<Rigidbody2D>();
         bc = GetComponent<BoxCollider2D>();
-        hp=100;
+        //hp=100;
         stageScore = 0;
 
         style = new GUIStyle();
 
-        style.fontSize = 20;
+        style.fontSize = 24;
 
         camera = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
         camera.backgroundColor = new Color(0.5294f,0.8078f,0.9216f);

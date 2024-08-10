@@ -78,12 +78,12 @@ public class BanditMove : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player"){
-        if(Random.Range(0,101) > 50){
+        //if(Random.Range(0,101) > 50){
 
             atacando = true;
             framesAtacando=0;
             //PlayerMove.hp -= 1;
-            }
+            //}
         }if(collision.gameObject.tag == "Ground"){
         canJump = true;
         
