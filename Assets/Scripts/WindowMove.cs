@@ -19,6 +19,7 @@ public class WindowMove : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = janelaQuebrada;
+        
     }
 
     // Update is called once per frame
@@ -26,9 +27,11 @@ public class WindowMove : MonoBehaviour
     {
         if(consertada){
         Debug.Log("consertada");
+        
             sr.sprite = janelaConsertada;
         }else{
         Debug.Log("não consertada");
+        
             sr.sprite = janelaQuebrada;
         }
     }

@@ -31,6 +31,10 @@ public class PlayerMove : MonoBehaviour
 
     GUIStyle style;
 
+    public AudioClip walkClip;
+    public AudioClip fixClip;
+    public AudioClip jumpClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,19 +62,43 @@ public class PlayerMove : MonoBehaviour
         if(hp <= 0){
             SceneManager.LoadScene("Defeat");
         }
-        bool consertadasTodas = true;
-        foreach(var j in GameObject.FindGameObjectsWithTag("Window")){
-            if(!j.GetComponent<WindowMove>().consertada){
-            consertadasTodas=false;
-            break;
-            }
-        }
-        if(consertadasTodas){
-        SceneManager.LoadScene("Victory");
-        }
-        if(secondsLeft <= 0){
-               SceneManager.LoadScene("Defeat"); 
 
+        if(level % 4 != 0){//verifica se o jogador não está no terraço
+
+        
+            bool consertadasTodas = true;
+            foreach(var j in GameObject.FindGameObjectsWithTag("Window")){
+                if(!j.GetComponent<WindowMove>().consertada){
+                    consertadasTodas=false;
+                    break;
+                }
+            }
+            if(consertadasTodas){
+            SceneManager.LoadScene("Victory");
+            }
+            }
+        
+        if(secondsLeft <= 0){
+
+            if(level % 4 != 0){//verifica se o jogador não está no terraço
+               SceneManager.LoadScene("Defeat"); 
+               }else{
+
+               int p1=0;
+               int opponent=0;
+               foreach(var j in GameObject.FindGameObjectsWithTag("Window")){
+                if(!j.GetComponent<WindowMove>().consertada){
+                    opponent++;
+                }else{
+                    p1++;
+                }
+
+                if(p1 > opponent){
+                SceneManager.LoadScene("Victory");
+                }
+            }
+                
+               }
         }else{
            timer += Time.deltaTime;
 
@@ -94,8 +122,10 @@ public class PlayerMove : MonoBehaviour
 
         if(Input.GetKey("left")){
             transform.position -= Vector3.right * speed *  Time.deltaTime;
+            SoundFXManager.instance.PlaySoundFXClip(walkClip, transform,   SoundOptionButton.soundVolume);
         }else if(Input.GetKey("right")){
             transform.position +=Vector3.right * speed * Time.deltaTime;
+            SoundFXManager.instance.PlaySoundFXClip(walkClip, transform,  SoundOptionButton.soundVolume);
         }if (Input.GetKey("z") && canJump) { //pula
             jumpFrames = 0.0f;
 
@@ -103,7 +133,7 @@ public class PlayerMove : MonoBehaviour
             if (rb.velocity.y == 0)
             {
                  rb.AddForce(Vector2.up * maxJumpFrames, ForceMode2D.Impulse);
-
+                 SoundFXManager.instance.PlaySoundFXClip(jumpClip, transform,  SoundOptionButton.soundVolume);
                
                 jumpFrames = 0f;
                 jumping = true;
@@ -133,7 +163,7 @@ public class PlayerMove : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground"){
+        if(collision.gameObject.tag == "Ground" ){
         canJump = true;
         
         }
@@ -149,7 +179,7 @@ public class PlayerMove : MonoBehaviour
         if(c.consertada == false){
             c.consertada = true;
             stageScore++;
-            
+            SoundFXManager.instance.PlaySoundFXClip(fixClip, transform,  SoundOptionButton.soundVolume);
             }
         }
         
@@ -160,7 +190,7 @@ public class PlayerMove : MonoBehaviour
 
      void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground"){
+        if(collision.gameObject.tag == "Ground" ){
         canJump = false;
         
         }
