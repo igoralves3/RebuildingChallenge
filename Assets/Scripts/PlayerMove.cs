@@ -25,6 +25,11 @@ public class PlayerMove : MonoBehaviour
     public static int hp = 100;
     public static int score=0;
     public static int stageScore = 0;
+    public static int level = 0;
+
+    public Camera camera;
+
+    GUIStyle style;
 
     // Start is called before the first frame update
     void Start()
@@ -34,20 +39,32 @@ public class PlayerMove : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         hp=100;
         stageScore = 0;
+
+        style = new GUIStyle();
+
+        style.fontSize = 20;
+
+        camera = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
+        camera.backgroundColor = new Color(0.5294f,0.8078f,0.9216f);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-    
+
+        if(transform.position.y <= -20){
+        SceneManager.LoadScene("Defeat");
+        }
         if(hp <= 0){
-            
+            SceneManager.LoadScene("Defeat");
         }
 
         if(secondsLeft <= 0){
+                
 
         }else{
            timer += Time.deltaTime;
+
 
         // Check if we have reached beyond 2 seconds.
         // Subtracting two is more accurate over time than resetting to zero.
@@ -58,6 +75,11 @@ public class PlayerMove : MonoBehaviour
             // Remove the recorded 2 seconds.
             timer = timer - 1;
             Time.timeScale = scrollBar;
+
+            if(secondsLeft <= 30){
+                camera.backgroundColor = new Color(0.0f,0.0f, 0.5451f);
+            }
+
         }
         }
 
@@ -79,10 +101,9 @@ public class PlayerMove : MonoBehaviour
                 canJump = false;
             }
             
-        }if(Input.GetKey("x")){
+        }fixing = false;
+        if(Input.GetKey("x")){
             fixing = true;
-        }else{
-            fixing = false;
         }
         
 
@@ -113,12 +134,20 @@ public class PlayerMove : MonoBehaviour
     {
         if(collision.gameObject.tag == "Window"){
         Debug.Log("trigger");
+
         if(fixing){
-            collision.GetComponent<WindowMove>().consertada = fixing;
+        var c = collision.GetComponent<WindowMove>();
+        if(c.consertada == false){
+            c.consertada = true;
+            stageScore++;
+            
+            }
         }
         
         }
     }
+
+    
 
      void OnCollisionExit2D(Collision2D collision)
     {
@@ -129,7 +158,8 @@ public class PlayerMove : MonoBehaviour
     }
 
     void OnGUI(){
-        GUI.Label(new Rect(10,10,100,20),"HP: "+hp.ToString());
-        GUI.Label(new Rect(10,30,100,20),"Time left: "+secondsLeft.ToString());
+        GUI.Label(new Rect(10,10,100,20),"HP: "+hp.ToString(),style);
+        GUI.Label(new Rect(10,30,100,20),"Time left: "+secondsLeft.ToString(),style);
+        GUI.Label(new Rect(10,50,100,20),"Score: "+stageScore.ToString(),style);
     }
 }
