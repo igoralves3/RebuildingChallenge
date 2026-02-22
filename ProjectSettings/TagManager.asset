@@ -7,11 +7,17 @@ TagManager:
   - Ground
   - Bandit
   - Window
+  - Status
+  - Opponent
+  - Limiter
+  - LimiterRight
+  - LimiterLeft
+  - Arrow
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Windows
   - Water
   - UI
   - 
