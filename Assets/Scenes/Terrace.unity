@@ -223,6 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+  m_IsActive: 1
   m_IsActive: 0
 --- !u!81 &679974648
 AudioListener:
@@ -743,11 +744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4951378383532029539, guid: 84da7edc732a2b146b44abec7d5bb8d8, type: 3}
       propertyPath: m_LocalPosition.z
-<<<<<<< HEAD
       value: 0
-=======
-      value: 1
->>>>>>> 7da9aeb1c9adc75630f4f6b11f18234e963ad26e
       objectReference: {fileID: 0}
     - target: {fileID: 4951378383532029539, guid: 84da7edc732a2b146b44abec7d5bb8d8, type: 3}
       propertyPath: m_LocalRotation.w
